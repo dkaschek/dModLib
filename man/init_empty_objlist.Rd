@@ -17,8 +17,8 @@ init_empty_objlist(pars, deriv = TRUE, FLAGchisquare = FALSE)
 Create an objlist with zeros as entries
 }
 \examples{
-dMod:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]))
-dMod:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]), FLAGchisquare = TRUE)
+dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]))
+dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]), FLAGchisquare = TRUE)
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)

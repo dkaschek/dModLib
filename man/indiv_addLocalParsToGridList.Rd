@@ -34,8 +34,8 @@ fix.grid <- data.table::data.table(ID = 1:2,
                        k5 = c(5.1,5.2),
                        k6 = c(6,6),
                        stringsAsFactors = FALSE)
-gl <- dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid)
-dMod:::indiv_addLocalParsToGridList(pars, gl)
+gl <- dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid)
+dModLib:::indiv_addLocalParsToGridList(pars, gl)
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)

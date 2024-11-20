@@ -15,7 +15,7 @@ Parameter transformation functions in dMod are generated with `P()`. The `method
 
 ```{r, message=FALSE}
 
-library(dMod)
+library(dModLib)
 library(dplyr)
 
 ```

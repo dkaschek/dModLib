@@ -17,10 +17,10 @@ Remove redundancies (happens when a parameter is duplicated and mapped to the sa
 For example in est.grid = data.table(ID = 1, init_A = "Atot", Atot= "Atot", ...)
 }
 \examples{
-ol <- dMod:::init_empty_objlist(c("S2" = 2, "S3" = 3, S2 = 3))
+ol <- dModLib:::init_empty_objlist(c("S2" = 2, "S3" = 3, S2 = 3))
 ol$gradient <- ol$gradient + 1:3
 ol$hessian <- ol$hessian + 1:9
-dMod:::sumDuplicatedParsInObjlist(ol)
+dModLib:::sumDuplicatedParsInObjlist(ol)
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)

@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 3.5)
 ```
 
 ```{r, message=FALSE}
-library(dMod)
+library(dModLib)
 library(dplyr)
 library(ggplot2)
 setwd(tempdir())

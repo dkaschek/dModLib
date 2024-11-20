@@ -40,8 +40,8 @@ unclass_parvec <- function(x) {setNames(unclass(x)[1:length(x)], names(x))}
 #'                        k5 = c(5.1,5.2),
 #'                        k6 = c(6,6),
 #'                        stringsAsFactors = FALSE)
-#' dMod:::make_pars(pars, fixed, est.grid, fix.grid, 1)
-#' dMod:::make_pars(pars, fixed, est.grid, fix.grid, 2)
+#' dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 1)
+#' dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 2)
 make_pars <- function(pars, fixed = NULL, est.grid, fix.grid, ID){
   
   i <- ID
@@ -145,9 +145,9 @@ sumDuplicatedParsInDeriv <- function(der) {
 #' @md
 #'
 #' @examples
-#' ol <- dMod:::init_empty_objlist(c(a = 1, b = 2))
+#' ol <- dModLib:::init_empty_objlist(c(a = 1, b = 2))
 #' parnames <- c(a = "c", b = "d")
-#' dMod:::renameDerivParsInObjlist(ol, parnames)
+#' dModLib:::renameDerivParsInObjlist(ol, parnames)
 renameDerivParsInObjlist <- function(objlist, parnames) {
   objlist$gradient <- objlist$gradient[names(parnames)]
   names(objlist$gradient) <- unname(parnames)
@@ -172,10 +172,10 @@ renameDerivParsInObjlist <- function(objlist, parnames) {
 #' @md
 #'
 #' @examples
-#' ol <- dMod:::init_empty_objlist(c("S2" = 2, "S3" = 3, S2 = 3))
+#' ol <- dModLib:::init_empty_objlist(c("S2" = 2, "S3" = 3, S2 = 3))
 #' ol$gradient <- ol$gradient + 1:3
 #' ol$hessian <- ol$hessian + 1:9
-#' dMod:::sumDuplicatedParsInObjlist(ol)
+#' dModLib:::sumDuplicatedParsInObjlist(ol)
 sumDuplicatedParsInObjlist <- function(ol) {
   attrs0 <- attributes(ol)
   attrs0 <- attrs0[setdiff(names(attrs0), c("names", "class"))]
@@ -225,9 +225,9 @@ sumDuplicatedParsInObjlist <- function(ol) {
 #'                        k5 = c(5.1,5.2),
 #'                        k6 = c(6,6),
 #'                        stringsAsFactors = FALSE)
-#' dMod:::indiv_addGlobalParsToGridlist(c(NewParSymbolic = "NewParSymbolic", NewParFixed = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid))
-#' dMod:::indiv_addGlobalParsToGridlist(c(k1 = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = FALSE) # nothing happens
-#' dMod:::indiv_addGlobalParsToGridlist(c(k1 = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = TRUE) # k1 is replaced and moved to fix.grid
+#' dModLib:::indiv_addGlobalParsToGridlist(c(NewParSymbolic = "NewParSymbolic", NewParFixed = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid))
+#' dModLib:::indiv_addGlobalParsToGridlist(c(k1 = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = FALSE) # nothing happens
+#' dModLib:::indiv_addGlobalParsToGridlist(c(k1 = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = TRUE) # k1 is replaced and moved to fix.grid
 indiv_addGlobalParsToGridlist <- function(pars, gridlist, FLAGoverwrite = FALSE) {
   # 1 Get grids
   est.grid <- gridlist$est.grid
@@ -255,7 +255,7 @@ indiv_addGlobalParsToGridlist <- function(pars, gridlist, FLAGoverwrite = FALSE)
 #' Can only add parameters, cannot update existing parameters
 #'
 #' @param pars data.table(ID, condition, pars...) Only one of ID, condition must be present
-#' @param gridlist [dMod::gridlist()]
+#' @param gridlist [dModLib::gridlist()]
 #' @param FLAGoverwrite Determine overwriting action: Cut down grids or pars. Default is `FALSE`
 #'
 #' @return modified gridlist
@@ -279,8 +279,8 @@ indiv_addGlobalParsToGridlist <- function(pars, gridlist, FLAGoverwrite = FALSE)
 #'                        k5 = c(5.1,5.2),
 #'                        k6 = c(6,6),
 #'                        stringsAsFactors = FALSE)
-#' gl <- dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid)
-#' dMod:::indiv_addLocalParsToGridList(pars, gl)
+#' gl <- dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid)
+#' dModLib:::indiv_addLocalParsToGridList(pars, gl)
 indiv_addLocalParsToGridList <- function(pars, gridlist, FLAGoverwrite = FALSE) {
   est.grid <- gridlist$est.grid
   fix.grid <- gridlist$fix.grid
@@ -329,14 +329,14 @@ indiv_addLocalParsToGridList <- function(pars, gridlist, FLAGoverwrite = FALSE) 
 #' @author Daniel Lill (daniel.lill@physik.uni-freiburg.de)
 #' @md
 #' @examples
-#' dMod:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]))
-#' dMod:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]), FLAGchisquare = TRUE)
+#' dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]))
+#' dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]), FLAGchisquare = TRUE)
 init_empty_objlist <- function(pars, deriv = TRUE, FLAGchisquare = FALSE) {
   
   gr <- if (deriv) setNames(rep(0, length(pars)), names(pars)) else NULL
   he <- if (deriv) matrix(0, nrow = length(pars), ncol = length(pars), dimnames = list(names(pars), names(pars))) else NULL
   
-  out <- dMod::objlist(value = 0, gradient = gr, hessian = he)
+  out <- dModLib::objlist(value = 0, gradient = gr, hessian = he)
   if (FLAGchisquare) attr(out, "chisquare") <- 0
   out
 }
@@ -833,7 +833,7 @@ getParameters.data.table <- function(x,...) {
 #'                        k3 = c("k3", NA),
 #'                        k4 = c("k4", "k4"),
 #'                        stringsAsFactors = FALSE)
-#' dMod:::getEstGridParameterMapping(est.grid)
+#' dModLib:::getEstGridParameterMapping(est.grid)
 getEstGridParameterMapping <- function(x) {
   nm <- setdiff(names(x),c("condition", "ID"))
   do.call(c, lapply(nm, function(n) setNames(unique(x[[n]]), rep(n, length(unique(x[[n]]))))))

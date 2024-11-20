@@ -34,9 +34,9 @@ fix.grid <- data.table::data.table(ID = 1:2,
                        k5 = c(5.1,5.2),
                        k6 = c(6,6),
                        stringsAsFactors = FALSE)
-dMod:::indiv_addGlobalParsToGridlist(c(NewParSymbolic = "NewParSymbolic", NewParFixed = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid))
-dMod:::indiv_addGlobalParsToGridlist(c(k1 = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = FALSE) # nothing happens
-dMod:::indiv_addGlobalParsToGridlist(c(k1 = 1), dMod:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = TRUE) # k1 is replaced and moved to fix.grid
+dModLib:::indiv_addGlobalParsToGridlist(c(NewParSymbolic = "NewParSymbolic", NewParFixed = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid))
+dModLib:::indiv_addGlobalParsToGridlist(c(k1 = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = FALSE) # nothing happens
+dModLib:::indiv_addGlobalParsToGridlist(c(k1 = 1), dModLib:::gridlist(est.grid = est.grid, fix.grid = fix.grid), FLAGoverwrite = TRUE) # k1 is replaced and moved to fix.grid
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)

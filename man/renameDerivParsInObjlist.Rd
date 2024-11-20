@@ -18,9 +18,9 @@ objlist with new names
 Rename the gradient and hessian of an objlist
 }
 \examples{
-ol <- dMod:::init_empty_objlist(c(a = 1, b = 2))
+ol <- dModLib:::init_empty_objlist(c(a = 1, b = 2))
 parnames <- c(a = "c", b = "d")
-dMod:::renameDerivParsInObjlist(ol, parnames)
+dModLib:::renameDerivParsInObjlist(ol, parnames)
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)

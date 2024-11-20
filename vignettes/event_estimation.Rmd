@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 3.5)
 Besides **dMod** we load **dplyr** for piping and maniupation of the simulated data. The **ggplot2** package is loaded to manually add elements to the plots.
 
 ```{r, message=FALSE}
-library(dMod)
+library(dModLib)
 library(dplyr)
 library(ggplot2)
 setwd(tempdir())

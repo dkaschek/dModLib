@@ -20,7 +20,7 @@ and what they do or do not have in common.
 
 ```{r, message=FALSE}
 
-library(dMod)
+library(dModLib)
 library(dplyr)
 setwd(tempdir())
 

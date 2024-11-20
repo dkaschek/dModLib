@@ -109,7 +109,7 @@ c.datalist <- function(...) {
   dlist <- lapply(list(...), unclass)
   
   condition.grids <- lapply(dlist, function(i) attr(i, "condition.grid"))
-  mycg <- Reduce(dMod::combine, condition.grids)
+  mycg <- Reduce(dModLib::combine, condition.grids)
   
   dlist <- Reduce(c, lapply(dlist, function(i) {`attr<-`(i, "condition.grid", NULL)}))
   attr(dlist, "condition.grid") <-  mycg

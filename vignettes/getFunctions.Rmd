@@ -17,7 +17,7 @@ We start with setting up a small model, i.e. a prediction function `x` and a par
 
 ```{r, message=FALSE}
 
-library(dMod)
+library(dModLib)
 library(dplyr)
 
 setwd(tempdir())

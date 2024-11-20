@@ -42,6 +42,6 @@ fix.grid <- data.frame(ID = 1:2,
                        k5 = c(5.1,5.2),
                        k6 = c(6,6),
                        stringsAsFactors = FALSE)
-dMod:::make_pars(pars, fixed, est.grid, fix.grid, 1)
-dMod:::make_pars(pars, fixed, est.grid, fix.grid, 2)
+dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 1)
+dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 2)
 }

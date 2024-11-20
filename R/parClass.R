@@ -254,6 +254,10 @@ plotPars.parframe <- function(x, tol = 1, ...){
 plotValues.parframe <- function(x, tol = 1, ...) {
   
   if (!missing(...)) x <- subset(x, ...)
+  if (nrow(x) == 0) {
+    warning("Parameter frame does not have rows.")
+    return()
+  }
   
   jumps <- stepDetect(x$value, tol)
   y.range <- c(min(x$value), max(max(x$value), min(x$value) + tol))

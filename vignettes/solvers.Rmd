@@ -14,7 +14,7 @@ dMod uses the cOde package to simulate ODEs. The cOde package is a wrapper packa
 
 ```{r, message=FALSE}
 
-library(dMod)
+library(dModLib)
 library(dplyr)
 setwd(tempdir())
 

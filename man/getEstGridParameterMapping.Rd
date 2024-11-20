@@ -23,7 +23,7 @@ est.grid <- data.frame(ID = 1:2,
                        k3 = c("k3", NA),
                        k4 = c("k4", "k4"),
                        stringsAsFactors = FALSE)
-dMod:::getEstGridParameterMapping(est.grid)
+dModLib:::getEstGridParameterMapping(est.grid)
 }
 \author{
 Daniel Lill (daniel.lill@physik.uni-freiburg.de)
