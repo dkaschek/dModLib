@@ -1,0 +1,35 @@
+Package: dModLib
+Type: Package
+Title: Dynamic Modeling and Parameter Estimation in ODE Models
+Version: 1.1.2
+Date: 2024-11-20
+Author: Daniel Kaschek
+Maintainer: Daniel Kaschek <daniel.kaschek@gmail.com>
+Description: The framework provides functions to generate ODEs of reaction
+    networks, parameter transformations, observation functions, residual functions,
+    etc. The framework follows the paradigm that derivative information should be
+    used for optimization whenever possible. Therefore, all major functions produce
+    and can handle expressions for symbolic derivatives.
+License: GPL (>= 2)
+Depends:
+    cOde (>= 1.1),
+Imports:
+    deSolve,
+    rootSolve,
+    ggplot2,
+    parallel,
+    stringr,
+    plyr,
+    dplyr,
+    foreach,
+    doParallel,
+    rlang,
+    data.table,
+    purrr
+Suggests:
+    MASS,
+    pander,
+    knitr,
+    rmarkdown,
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
