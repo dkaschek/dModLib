@@ -15,7 +15,3 @@ character of outer parameter names
 \description{
 Extract parameter names from est.grid
 }
-\examples{
-eg_good <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-getParameters_est.grid(eg_good)
-}

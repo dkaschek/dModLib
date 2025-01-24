@@ -11,6 +11,23 @@
 
 
 #' @rdname normL2
+#' @param data datalist object
+#' @param prd0 prediction function object. Should be the underlying prediction function which can 
+#' be used for all individuals
+#' @param errmodel error model function object.
+#' @param forcings list with data frames by individual with the forcings
+#' @param iiv Names of the IIV parameters, e.g., "ETA_CL", "ETA_Vc"
+#' @param conditional Data frame defining "local" parameters. Should be a data.frame with
+#' columns parname (char), covname (char), covvalue (char). The data frame defines for whic
+#' values of covariates which parameter will be considered a local parameter (= independent 
+#' value if the covariate value is the one in the table).
+#' @param fixed.grid Fixed.grid
+#' @param nauxtimes Number of auxiliary timepoints
+#' @param cores Number of cores
+#' @param deriv Logical indicating whether derivatives should be returned
+#' @param attr.name Store the objetive function value additionally in the attributes under "attr.name".
+#' 
+#' @return Objective function object
 normIndiv <- function(data,
                       prd0,
                       errmodel = NULL,
@@ -230,6 +247,14 @@ normIndiv <- function(data,
 
 # Grid-related functions ----
 
+# prd0 <- P(c(a = "exp(a + ETA_a)", "b" = "b", d = "d"))
+# fixed.grid <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = 1, "2" = NA, "3" = NA, stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+# conditional <- data.frame(parname = c("b", "b", "d"), covname = "SEX", covvalue = c("male", "female", "male"), stringsAsFactors = FALSE)
+# condition.grid <- data.frame(ID = 1:3, SEX = c("female", "male", "male"), stringsAsFactors = FALSE)
+# iiv <- "ETA_a"
+# build_est.grid(prd0, fixed.grid, conditional, condition.grid, iiv)
+
+
 #' Build the est.grid from prd, fixed.grid, conditional and condition.grid
 #'
 #' Performs indiviudalization and localization of parameters
@@ -238,16 +263,10 @@ normIndiv <- function(data,
 #' @param fixed.grid As specified in template_project_sysfit.R: data.frame(parname, partask, ids...)
 #' @param conditional As specified in template_project_sysfit.R: data.frame(parname, covname, covvalue)
 #' @param condition.grid from datalist
+#' @param iiv parameters with iiv
 #'
 #' @return est.grid data.frame(parname, ids...)
 #'
-#' @examples
-#' prd0 <- P(c(a = "exp(a + ETA_a)", "b" = "b", d = "d"))
-#' fixed.grid <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = 1, "2" = NA, "3" = NA, stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#' conditional <- data.frame(parname = c("b", "b", "d"), covname = "SEX", covvalue = c("male", "female", "male"), stringsAsFactors = FALSE)
-#' condition.grid <- data.frame(ID = 1:3, SEX = c("female", "male", "male"), stringsAsFactors = FALSE)
-#' iiv <- "ETA_a"
-#' build_est.grid(prd0, fixed.grid, conditional, condition.grid, iiv)
 build_est.grid <- function(prd0, fixed.grid, conditional, condition.grid, iiv = NULL) {
   # [] unit test?
   check_cond(conditional, condition.grid)
@@ -288,16 +307,14 @@ build_est.grid <- function(prd0, fixed.grid, conditional, condition.grid, iiv = 
   est.grid
 }
 
+# eg_good <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+# getParameters_est.grid(eg_good)
 
 #' Extract parameter names from est.grid
 #'
 #' @param est.grid data.frame(parname, partask, ids...)
 #'
 #' @return character of outer parameter names
-#'
-#' @examples
-#' eg_good <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#' getParameters_est.grid(eg_good)
 getParameters_est.grid <- function(est.grid) {
   parameters <- unique(unlist(est.grid[-(1:2)], use.names = FALSE))
   parameters <- parameters[!is.na(parameters)]
@@ -374,6 +391,16 @@ check_cond <- function(conditional, condition.grid) {
 
 
 
+# @examples
+# fg <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = 1, "2" = NA, "3" = NA, stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+# eg_good <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+# eg_bad1 <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = NA, "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+# eg_bad2 <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = "dummy", "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
+#
+# check_grids(fg, eg_good)
+# check_grids(fg, eg_bad1)
+# check_grids(fg, eg_bad2)
+
 #' Some consistency checks for fixed.grid and est.grid
 #'
 #' * Checks for localized parameters appearing in both grids that exactly one NA is in either of the grids
@@ -383,15 +410,6 @@ check_cond <- function(conditional, condition.grid) {
 #'
 #' @return TRUE: All tests passed, else an error is thrown
 #'
-#' @examples
-#' fg <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = 1, "2" = NA, "3" = NA, stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#' eg_good <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#' eg_bad1 <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = NA, "2" = NA, "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#' eg_bad2 <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = "dummy", "2" = "dummy", "3" = "dummy", stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-#'
-#' check_grids(fg, eg_good)
-#' check_grids(fg, eg_bad1)
-#' check_grids(fg, eg_bad2)
 check_grids <- function(fixed.grid, est.grid) {
   par_overlap <- intersect(fixed.grid$parname, est.grid$parname)
   if (length(par_overlap)){
@@ -451,12 +469,12 @@ rename_objlist <- function(myobjlist, condition, est.grid) {
 }
 
 
-
+# @examples
+# init_empty_objlist(setNames(rnorm(5), letters[1:5]))
+#
 #' Create an objlist with zeros as entries
 #' @param pars named vector. Only names and length are used
 #' @param deriv TRUE or FALSE
-#' @examples
-#' init_empty_objlist(setNames(rnorm(5), letters[1:5]))
 init_empty_objlist <- function(pars, deriv = TRUE) {
   
   if (!deriv)

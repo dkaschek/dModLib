@@ -587,8 +587,8 @@ priorL2 <- function(mu, lambda = "lambda", attr.name = "prior", condition = NULL
 #' @param nout data.frame (result of [res]) or object of class [res].
 #' @param pars Example named vector of outer parameters to construct the objlist
 #' @param deriv TRUE or FALSE
-#' @param opt.BLOQ see [normL2_indiv]
-#' @param opt.hessian see [normL2_indiv]
+#' @param opt.BLOQ see [normIndiv]
+#' @param opt.hessian see [normIndiv]
 #' 
 #' @md
 #' @return list with entries value (numeric, the weighted residual sum of squares), 

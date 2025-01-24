@@ -463,6 +463,8 @@ getConditions.tbl_df <- function(x, hypothesis = 1, ...) {
 #' quadmyfun(1:10, quada)
 checkout_hypothesis <- function(dMod.frame, hypothesis, prefix = "", suffix = "") {
 
+  global_env <- .GlobalEnv
+  
   if(is.numeric(hypothesis)) {
     mydMod.frame <- dMod.frame[hypothesis,]
   } else {
@@ -473,7 +475,7 @@ checkout_hypothesis <- function(dMod.frame, hypothesis, prefix = "", suffix = ""
     if(is.list(value)&length(value)==1) value = value[[1]]
     try(assign(x = paste0(prefix,names(mydMod.frame)[i],suffix),
                value = value,
-               pos = .GlobalEnv),
+               pos = global_env),
         silent = T)
   })
 

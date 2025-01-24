@@ -24,7 +24,27 @@ normL2(data, x, errmodel = NULL, times = NULL, attr.name = "data")
 \arguments{
 \item{data}{object of class \link{datalist}}
 
+\item{prd0}{prediction function object. Should be the underlying prediction function which can 
+be used for all individuals}
+
 \item{errmodel}{object of class \link{obsfn}. \code{errmodel} does not need to be defined for all conditions.}
+
+\item{forcings}{list with data frames by individual with the forcings}
+
+\item{iiv}{Names of the IIV parameters, e.g., "ETA_CL", "ETA_Vc"}
+
+\item{conditional}{Data frame defining "local" parameters. Should be a data.frame with
+columns parname (char), covname (char), covvalue (char). The data frame defines for whic
+values of covariates which parameter will be considered a local parameter (= independent 
+value if the covariate value is the one in the table).}
+
+\item{fixed.grid}{Fixed.grid}
+
+\item{nauxtimes}{Number of auxiliary timepoints}
+
+\item{cores}{Number of cores}
+
+\item{deriv}{Logical indicating whether derivatives should be returned}
 
 \item{attr.name}{character. The constraint value is additionally returned in an 
 attributed with this name}
@@ -36,6 +56,8 @@ evaluated. If NULL, time points are extacted from the datalist solely. If the pr
 function makes use of events, hand over event \code{times} here.}
 }
 \value{
+Objective function object
+
 Object of class \code{obsfn}, i.e. a function 
 \code{obj(..., fixed, deriv, conditions, env)} that returns an objective list,
 \link{objlist}.

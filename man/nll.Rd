@@ -20,9 +20,9 @@ nll(
 
 \item{deriv}{TRUE or FALSE}
 
-\item{opt.BLOQ}{see \link{normL2_indiv}}
+\item{opt.BLOQ}{see \link{normIndiv}}
 
-\item{opt.hessian}{see \link{normL2_indiv}}
+\item{opt.hessian}{see \link{normIndiv}}
 }
 \value{
 list with entries value (numeric, the weighted residual sum of squares),

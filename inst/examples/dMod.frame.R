@@ -142,8 +142,12 @@ multiframe <-
   # expressions (...) independently for each group.
   ungroup() |> 
   mutate(
-    constr = purrr::map(seq_along(x), function(i) constraintL2(mu = 0*pars[[i]], sigma = 10^(i-3))),
-    hypothesis = purrr::map_chr(seq_along(x), function(i) paste0(hypothesis[[i]], ", prior sigma = ", 10^(i-3)))
+    constr = purrr::map(seq_along(x), function(i) {
+      constraintL2(mu = 0*pars[[i]], sigma = 10^(i-3))
+    }),
+    hypothesis = purrr::map_chr(seq_along(x), function(i) {
+      paste0(hypothesis[[i]], ", prior sigma = ", 10^(i-3))
+    })
   ) |> 
   rowwise() |> #regroup by row for convenient interface to mutate()
   mutate(

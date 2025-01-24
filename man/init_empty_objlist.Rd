@@ -14,6 +14,3 @@ init_empty_objlist(pars, deriv = TRUE)
 \description{
 Create an objlist with zeros as entries
 }
-\examples{
-init_empty_objlist(setNames(rnorm(5), letters[1:5]))
-}

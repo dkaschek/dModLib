@@ -24,8 +24,7 @@ Imports:
     foreach,
     doParallel,
     rlang,
-    data.table,
-    purrr
+    data.table
 Suggests:
     MASS,
     pander,

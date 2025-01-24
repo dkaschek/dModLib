@@ -7,25 +7,19 @@
 build_est.grid(prd0, fixed.grid, conditional, condition.grid, iiv = NULL)
 }
 \arguments{
-\item{prd0}{prdfn for 1 condition. Extracts parameters via dMod::getParameters}
+\item{prd0}{prdfn for 1 condition. Extracts parameters via getParameters}
 
 \item{fixed.grid}{As specified in template_project_sysfit.R: data.frame(parname, partask, ids...)}
 
 \item{conditional}{As specified in template_project_sysfit.R: data.frame(parname, covname, covvalue)}
 
 \item{condition.grid}{from datalist}
+
+\item{iiv}{parameters with iiv}
 }
 \value{
 est.grid data.frame(parname, ids...)
 }
 \description{
 Performs indiviudalization and localization of parameters
-}
-\examples{
-prd0 <- dMod::P(c(a = "exp(a + ETA_a)", "b" = "b", d = "d"))
-fixed.grid <- stats::setNames(data.frame(parname = "d", partask = "Cond_specific", "1" = 1, "2" = NA, "3" = NA, stringsAsFactors = FALSE), c("parname", "partask", as.character(1:3)))
-conditional <- data.frame(parname = c("b", "b", "d"), covname = "SEX", covvalue = c("male", "female", "male"), stringsAsFactors = FALSE)
-condition.grid <- data.frame(ID = 1:3, SEX = c("female", "male", "male"), stringsAsFactors = FALSE)
-iiv <- "ETA_a"
-build_est.grid(prd0, fixed.grid, conditional, condition.grid, iiv)
 }
