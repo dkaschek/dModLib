@@ -103,8 +103,6 @@ trust <- function(objfun, parinit, rinit, rmax, parscale, iterlim = 100,
                   minimize = TRUE, blather = FALSE, parupper = Inf, parlower = -Inf, printIter = FALSE, traceFile = NULL, ...) 
 {
   
-  
-  
   # Verbose Initialization and new obfun to be consistent with df optimizers
   objfun.orig <- objfun 
   iterations <- 0

@@ -2,46 +2,27 @@
 % Please edit documentation in R/normIndiv.R
 \name{make_pars}
 \alias{make_pars}
-\title{Extract pars, fixed and parnames from grids for a given condition}
+\title{Extract individualized parameters for one ID}
 \usage{
-make_pars(pars, fixed = NULL, est.grid, fix.grid, ID)
+make_pars(parsouter, fixedouter, condition, est.grid, fixed.grid)
 }
 \arguments{
-\item{pars}{Named numeric or [parvec]. A parameter vector.}
+\item{parsouter, fixedouter}{Arguments which are passed to the function returned by \link{normIndiv}}
 
-\item{fixed}{Named numeric or [parvec]. A vector of fixed parameters}
+\item{condition}{The specific condition for which the parameters should be extracted}
 
-\item{est.grid}{Data frame with columns `ID`, `condition`, and columns for the
-parameters (see example)}
-
-\item{fix.grid}{Data frame with columns `ID`, `condition`, and columns for the
-parameters (see example)}
-
-\item{ID}{single ID}
+\item{est.grid, fixed.grid}{Lookup tables.}
 }
 \value{
-List with pars, fixed, parnames, and parnames_full
+list(pars, fixed) to put into prd0
 }
 \description{
-Extract pars, fixed and parnames from grids for a given condition
+From the outer individualized parsouter and fixedouter, get the generalized parsouter0, fixedouter0 to supply to prd0
 }
-\examples{
-pars <- c("k1_A" = 1, "k1_B" = 1, "k2_A" = 2, "k3" = 3, "k4" = 4)
-fixed <- c("k2_B" = 2.5)
-
-est.grid <- data.frame(ID = 1:2,
-                       condition = c("A", "B"),
-                       k1 = c("k1_A", "k1_B"),
-                       k2 = c("k2_A", "k2_B"),
-                       k3 = c("k3", NA),
-                       k4 = c("k4", "k4"),
-                       stringsAsFactors = FALSE)
-fix.grid <- data.frame(ID = 1:2,
-                       condition = c("A", "B"),
-                       k3 = c(NA, 3.5),
-                       k5 = c(5.1,5.2),
-                       k6 = c(6,6),
-                       stringsAsFactors = FALSE)
-dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 1)
-dModLib:::make_pars(pars, fixed, est.grid, fix.grid, 2)
+\details{
+Catch the following two cases:
+\itemize{
+\item Entry in est.grid is NA                 => Parameter value present in fixed.grid
+\item Parameter name not present in parsouter => Parameter value present in fixed_outer
+}
 }

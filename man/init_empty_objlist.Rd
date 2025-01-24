@@ -4,22 +4,16 @@
 \alias{init_empty_objlist}
 \title{Create an objlist with zeros as entries}
 \usage{
-init_empty_objlist(pars, deriv = TRUE, FLAGchisquare = FALSE)
+init_empty_objlist(pars, deriv = TRUE)
 }
 \arguments{
 \item{pars}{named vector. Only names and length are used}
 
 \item{deriv}{TRUE or FALSE}
-
-\item{FLAGchisquare}{Add attribute "chisquare" which is initialized by 0.}
 }
 \description{
 Create an objlist with zeros as entries
 }
 \examples{
-dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]))
-dModLib:::init_empty_objlist(setNames(stats::rnorm(5), letters[1:5]), FLAGchisquare = TRUE)
-}
-\author{
-Daniel Lill (daniel.lill@physik.uni-freiburg.de)
+init_empty_objlist(setNames(rnorm(5), letters[1:5]))
 }

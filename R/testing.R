@@ -162,7 +162,7 @@ createExample <- function(test, testPath = NULL) {
   }
   testFile = file.path(testPath, paste0("test-", test, ".R"))
   
-  dModPath <- path.package("dMod")
+  dModPath <- path.package("dModLib")
   file.copy(file.path(dModPath, "templates", "unitTestTemplate.R"), testFile, overwrite = FALSE)
   file.edit(testFile)
 }
